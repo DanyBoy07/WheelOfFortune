@@ -19,6 +19,7 @@ class PlayerTest {
     public void shouldThrowIllegalArgumentExceptionWhenNameIsNullOrEmpty() {
         String name = "";
         String nameB = null;
+
         assertThrows(IllegalArgumentException.class, () -> new Player(name));
         assertThrows(IllegalArgumentException.class, () -> new Player(nameB));
     }
@@ -28,6 +29,7 @@ class PlayerTest {
         String name = "Jan";
         String result = "[<" + name + ">]";
         Player player = new Player(name);
+
         assertEquals(player.toString(), result);
     }
 
