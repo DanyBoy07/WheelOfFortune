@@ -10,7 +10,7 @@ public class App {
         Game game = new Game(passwordManager);
         try {
             game.roundsOfGame(playerFactory.createPlayers());
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IllegalStateException e) {
             System.out.println(e);
         }
 

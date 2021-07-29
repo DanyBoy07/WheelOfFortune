@@ -3,7 +3,7 @@ package pl.danyboy;
 import java.util.List;
 
 public class PlayerFactory {
-    private LineReader reader;
+    private final LineReader reader;
 
     public PlayerFactory(LineReader reader) {
         this.reader = reader;
