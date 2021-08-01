@@ -2,28 +2,41 @@ package pl.danyboy;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PasswordManagerTest {
 
     @Test
     public void shouldAddPasswordWhenIsUnique() {
+        List<String> passwords = new ArrayList<>();
+        passwords.add("Apetyt rośnie w miarę jedzenia");
+        passwords.add("Co dwie głowy, to nie jedna");
+        passwords.add("Ćwiczenie czyni mistrza");
+        passwords.add("Darowanemu koniowi w zęby się nie zagląda");
+        passwords.add("Diabeł tkwi w szczegółach");
+        passwords.add("Elektryka prąd nie tyka");
+
         PasswordManager passwordManager = new PasswordManager();
-        String password = "Apetyt rośnie w miarę jedzenia";
+        String password = passwordManager.getRandomPassword();
 
-        passwordManager.setPasswords(password);
+        assertTrue(passwords.contains(password));
 
-        assertEquals(password, passwordManager.getRandomPassword());
+
     }
 
     @Test
     public void shouldThrowIllegalStateExceptionWhenPasswordIsRepeated() {
         PasswordManager passwordManager = new PasswordManager();
-        String password = "Apetyt rośnie w miarę jedzenia";
+        int sizeOfList = 6;
 
-        passwordManager.setPasswords(password);
-        passwordManager.getRandomPassword();
+        for (int i = 0; i < sizeOfList; i++) {
+            passwordManager.getRandomPassword();
+        }
 
-        assertThrows(IllegalStateException.class, ()-> passwordManager.getRandomPassword());
+        assertThrows(IllegalStateException.class, () -> passwordManager.getRandomPassword());
     }
 }

@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 public class PasswordManager {
-
+    //true if password can be used, false is password was used during the game
     private final Map<String, Boolean> passwords = new HashMap<>();
     private final RandomGenerator randomGenerator = new RandomGenerator();
 
     public PasswordManager() {
-//        passwords.put("Apetyt rośnie w miarę jedzenia", true);
-//        passwords.put("Co dwie głowy, to nie jedna", true);
-//        passwords.put("Ćwiczenie czyni mistrza", true);
-//        passwords.put("Darowanemu koniowi w zęby się nie zagląda", true);
-//        passwords.put("Diabeł tkwi w szczegółach", true);
-//        passwords.put("Elektryka prąd nie tyka", true);
+        passwords.put("Apetyt rośnie w miarę jedzenia", true);
+        passwords.put("Co dwie głowy, to nie jedna", true);
+        passwords.put("Ćwiczenie czyni mistrza", true);
+        passwords.put("Darowanemu koniowi w zęby się nie zagląda", true);
+        passwords.put("Diabeł tkwi w szczegółach", true);
+        passwords.put("Elektryka prąd nie tyka", true);
     }
 
     public String getRandomPassword() {

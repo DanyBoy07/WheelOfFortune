@@ -7,7 +7,8 @@ public class App {
         System.out.println("Witaj w Kole Fortuny");
         PlayerFactory playerFactory = new PlayerFactory(lineReader);
         PasswordManager passwordManager = new PasswordManager();
-        Game game = new Game(passwordManager);
+        GuessStage guessStage = new GuessStage(lineReader);
+        Game game = new Game(passwordManager, guessStage);
         try {
             game.roundsOfGame(playerFactory.createPlayers());
         } catch (IllegalArgumentException | IllegalStateException e) {
