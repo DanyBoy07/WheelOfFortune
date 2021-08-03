@@ -19,7 +19,7 @@ public class Game {
             System.out.println(randomPassword);
             for (Player player : players) {
                 System.out.println("Tura gracza " + player.toString());
-                guessStage.passwordGuesses(randomPassword);
+                guessStage.passwordGuessesInformation(randomPassword);
             }
         }
     }

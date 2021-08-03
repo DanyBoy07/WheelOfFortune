@@ -2,31 +2,34 @@ package pl.danyboy;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PasswordManagerTest {
 
     @Test
-    public void shouldAddPasswordWhenIsUnique() {
-        List<String> passwords = new ArrayList<>();
-        passwords.add("Apetyt rośnie w miarę jedzenia");
-        passwords.add("Co dwie głowy, to nie jedna");
-        passwords.add("Ćwiczenie czyni mistrza");
-        passwords.add("Darowanemu koniowi w zęby się nie zagląda");
-        passwords.add("Diabeł tkwi w szczegółach");
-        passwords.add("Elektryka prąd nie tyka");
-
+    public void shouldDrawPasswordWhenIsNeverUsed() {
         PasswordManager passwordManager = new PasswordManager();
         String password = passwordManager.getRandomPassword();
 
-        assertTrue(passwords.contains(password));
-
+        if (password.equals("Apetyt rośnie w miarę jedzenia")) {
+            assertEquals(password, "Apetyt rośnie w miarę jedzenia");
+        } else if (password.equals("Co dwie głowy, to nie jedna")) {
+            assertEquals(password, "Co dwie głowy, to nie jedna");
+        } else if (password.equals("Ćwiczenie czyni mistrza")) {
+            assertEquals(password, "Ćwiczenie czyni mistrza");
+        } else if (password.equals("Ćwiczenie czyni mistrza")) {
+            assertEquals(password, "Ćwiczenie czyni mistrza");
+        } else if (password.equals("Darowanemu koniowi w zęby się nie zagląda")) {
+            assertEquals(password, "Darowanemu koniowi w zęby się nie zagląda");
+        } else if (password.equals("Diabeł tkwi w szczegółach")) {
+            assertEquals(password, "Diabeł tkwi w szczegółach");
+        } else if (password.equals("Elektryka prąd nie tyka")) {
+            assertEquals(password, "Elektryka prąd nie tyka");
+        }
 
     }
+
 
     @Test
     public void shouldThrowIllegalStateExceptionWhenPasswordIsRepeated() {
