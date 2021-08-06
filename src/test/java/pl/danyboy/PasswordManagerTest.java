@@ -30,7 +30,6 @@ class PasswordManagerTest {
 
     }
 
-
     @Test
     public void shouldThrowIllegalStateExceptionWhenPasswordIsRepeated() {
         PasswordManager passwordManager = new PasswordManager();
@@ -41,5 +40,40 @@ class PasswordManagerTest {
         }
 
         assertThrows(IllegalStateException.class, () -> passwordManager.getRandomPassword());
+    }
+
+    @Test
+    public void shouldReturnedPositiveNumberWhenCharIsPresent() {
+        char charValue = 'a';
+        String password = "aaAAbbcccdddppp";
+        PasswordManager passwordManager = new PasswordManager();
+
+        assertEquals(4, passwordManager.guessLetter(charValue, password));
+    }
+
+    @Test
+    public void shouldReturnedZeroWhenCharIsNotPresent() {
+        char charValue = 'H';
+        String password = "aaAAbbcccdddpppa";
+        PasswordManager passwordManager = new PasswordManager();
+
+        assertEquals(0, passwordManager.guessLetter(charValue, password));
+    }
+
+    @Test
+    public void shouldReturnedTrueWhenPasswordAreTheSame() {
+        PasswordManager passwordManager = new PasswordManager();
+        String password = "HHlasjdlfjas";
+
+        assertEquals(true, passwordManager.guessPassword(password, "hhlasjdlfjas"));
+        assertEquals(true, passwordManager.guessPassword(password, "HHlasjdlfjas"));
+    }
+
+    @Test
+    public void shouldReturnFalseWhenPasswordAreVarious() {
+        PasswordManager passwordManager = new PasswordManager();
+        String password = "HHlasjdlfjas";
+
+        assertEquals(false, passwordManager.guessPassword(password, "asdfasfdas"));
     }
 }

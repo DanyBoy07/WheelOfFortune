@@ -26,8 +26,18 @@ public class PasswordManager {
                 throw new IllegalStateException("brak unikalnego hasła");
             }
             String password = keys.get(randomGenerator.numberGenerator(keys.size()));
-            if (extracted(password)) return password;
+            if (extracted(password)) {
+                return password;
+            }
         }
+    }
+
+    public long guessLetter(char guessLetter, String password) {
+        return password.toLowerCase().chars().filter(ch -> ch == Character.toLowerCase(guessLetter)).count();
+    }
+
+    public boolean guessPassword(String guessPassword, String password) {
+        return password.equalsIgnoreCase(guessPassword);
     }
 
     public void setPasswords(String newPassword) {
