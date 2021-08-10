@@ -32,7 +32,8 @@ public class PasswordManager {
         }
     }
 
-    public long guessLetter(char guessLetter, String password) {
+    public long guessLetter(String inputFromUser, String password) {
+        char guessLetter = transformToChar(inputFromUser);
         return password.toLowerCase().chars().filter(ch -> ch == Character.toLowerCase(guessLetter)).count();
     }
 
@@ -62,5 +63,10 @@ public class PasswordManager {
             }
         }
         return true;
+    }
+
+    private char transformToChar(String inputFromUser) {
+        int index = 0;
+        return inputFromUser.trim().charAt(index);
     }
 }

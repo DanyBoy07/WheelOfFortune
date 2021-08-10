@@ -8,8 +8,10 @@ public class App {
         System.out.println("Witaj w Kole Fortuny");
         PlayerFactory playerFactory = new PlayerFactory(lineReader);
         PasswordManager passwordManager = new PasswordManager();
-        GuessStage guessStage = new GuessStage(lineReader, passwordManager);
-        Game game = new Game(passwordManager, guessStage);
+        PasswordStage passwordStage = new PasswordStage();
+        GuessStage guessStage = new GuessStage(passwordManager);
+
+        Game game = new Game(passwordManager, guessStage, lineReader, passwordStage);
         try {
             game.roundsOfGame(playerFactory.createPlayers());
         } catch (IllegalArgumentException | IllegalStateException e) {

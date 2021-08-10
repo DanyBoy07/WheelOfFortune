@@ -44,20 +44,20 @@ class PasswordManagerTest {
 
     @Test
     public void shouldReturnedPositiveNumberWhenCharIsPresent() {
-        char charValue = 'a';
+        String testString = "a";
         String password = "aaAAbbcccdddppp";
         PasswordManager passwordManager = new PasswordManager();
 
-        assertEquals(4, passwordManager.guessLetter(charValue, password));
+        assertEquals(4, passwordManager.guessLetter(testString, password));
     }
 
     @Test
     public void shouldReturnedZeroWhenCharIsNotPresent() {
-        char charValue = 'H';
+        String testString = "H";
         String password = "aaAAbbcccdddpppa";
         PasswordManager passwordManager = new PasswordManager();
 
-        assertEquals(0, passwordManager.guessLetter(charValue, password));
+        assertEquals(0, passwordManager.guessLetter(testString, password));
     }
 
     @Test
