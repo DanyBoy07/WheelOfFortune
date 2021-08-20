@@ -13,7 +13,6 @@ public class PlayerFactory {
 
         int numbersOfPlayers = setQuantityOfPlayers();
 
-
         ListOfPlayers listOfPlayers = new ListOfPlayers();
         for (int i = 0; i < numbersOfPlayers; i++) {
             listOfPlayers.addPlayer(setNameOfPlayerFromUser());

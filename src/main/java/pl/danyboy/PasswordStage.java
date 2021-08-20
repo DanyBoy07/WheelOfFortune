@@ -2,48 +2,56 @@ package pl.danyboy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PasswordStage {
     private final List<Character> corectGuesses = new ArrayList<>();
 
     public String getObscuredPassword(String password, String inputFromUser) {
-        StringBuilder stringBuilder = new StringBuilder();
 
         if (inputCheck(password, inputFromUser)) return password;
 
-        addLetterToCorectGuess(password, inputFromUser);
+        addLetterToCorectGuess(inputFromUser);
 
-        createPassword(password, stringBuilder);
+        return createPassword(password, getObscuredPassword(password));
+
+    }
+
+    public String getObscuredPassword(String password) {
+        String replace = "-";
+        StringBuilder stringBuilder = new StringBuilder(password);
+        Pattern pattern = Pattern.compile("\\p{L}");
+        Matcher matcher = pattern.matcher(stringBuilder);
+
+        int startIndex = 0;
+        while (matcher.find(startIndex)) {
+            stringBuilder.replace(matcher.start(), matcher.end(), replace);
+        }
         return stringBuilder.toString();
+    }
 
+    public void resetListOfChars() {
+        corectGuesses.clear();
     }
 
     private boolean inputCheck(String password, String inputFromUser) {
         return password.equalsIgnoreCase(inputFromUser);
     }
 
-    private void addLetterToCorectGuess(String password, String inputFromUser) {
-        char letter;
-        if (inputFromUser != null && password.contains(inputFromUser)) {
-            letter = transformToLetter(inputFromUser);
-            lettersAddToCorectGuesses(letter);
-        }
+    private void addLetterToCorectGuess(String inputFromUser) {
+        lettersAddToCorectGuesses(transformToLetter(inputFromUser));
     }
 
-    private void createPassword(String password, StringBuilder stringBuilder) {
+    private String createPassword(String password, String actualPassword) {
+
+        StringBuilder stringBuilder = new StringBuilder(actualPassword);
         for (int i = 0; i < password.length(); i++) {
-            if (password.charAt(i) == ' ') {
-                stringBuilder.append(' ');
-            } else if (corectGuesses.contains(password.charAt(i))) {
-                stringBuilder.append(password.charAt(i));
-            } else {
-                stringBuilder.append('-');
+            if (corectGuesses.contains(password.charAt(i))) {
+                stringBuilder.setCharAt(i, password.charAt(i));
             }
         }
-    }
-
-    public void resetListOfChars() {
-        corectGuesses.clear();
+        return stringBuilder.toString();
     }
 
     private char transformToLetter(String letterFromUser) {

@@ -9,9 +9,10 @@ public class App {
         PlayerFactory playerFactory = new PlayerFactory(lineReader);
         PasswordManager passwordManager = new PasswordManager();
         PasswordStage passwordStage = new PasswordStage();
-        GuessStage guessStage = new GuessStage(passwordManager);
+        GuessStage guessStage = new GuessStage();
+        Viewer viewer = new Viewer();
 
-        Game game = new Game(passwordManager, guessStage, lineReader, passwordStage);
+        Game game = new Game(passwordManager, lineReader, passwordStage, guessStage, viewer);
         try {
             game.roundsOfGame(playerFactory.createPlayers());
         } catch (IllegalArgumentException | IllegalStateException e) {
@@ -19,4 +20,5 @@ public class App {
         }
 
     }
+
 }

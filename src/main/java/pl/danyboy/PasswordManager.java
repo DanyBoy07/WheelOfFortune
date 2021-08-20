@@ -11,8 +11,8 @@ public class PasswordManager {
     private final RandomGenerator randomGenerator = new RandomGenerator();
 
     public PasswordManager() {
-        passwords.put("Apetyt rośnie w miarę jedzenia", true);
-        passwords.put("Co dwie głowy, to nie jedna", true);
+        passwords.put("Apetyt rośnie, w miarę jedzenia", true);
+        passwords.put("Co dwie głowy to nie jedna", true);
         passwords.put("Ćwiczenie czyni mistrza", true);
         passwords.put("Darowanemu koniowi w zęby się nie zagląda", true);
         passwords.put("Diabeł tkwi w szczegółach", true);
@@ -32,7 +32,7 @@ public class PasswordManager {
         }
     }
 
-    public long guessLetter(String inputFromUser, String password) {
+    public long numberOfGuessLetter(String inputFromUser, String password) {
         char guessLetter = transformToChar(inputFromUser);
         return password.toLowerCase().chars().filter(ch -> ch == Character.toLowerCase(guessLetter)).count();
     }
