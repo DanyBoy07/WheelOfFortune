@@ -43,7 +43,9 @@ public class Game {
             if (guessStage.isALetter(input)) {
                 viewer.letterAnnouncement(guessStage.checkLettersInPassword(randomPassword, input));
                 System.out.println(passwordStage.getObscuredPassword(randomPassword, input));
-                return guessStage.checkPassword(randomPassword, passwordStage.getObscuredPassword(randomPassword, input));
+                if (guessStage.checkPassword(randomPassword, passwordStage.getObscuredPassword(randomPassword, input))) {
+                    return true;
+                }
 
             } else {
                 viewer.passwordAnnouncement(guessStage.checkPassword(randomPassword, input));
