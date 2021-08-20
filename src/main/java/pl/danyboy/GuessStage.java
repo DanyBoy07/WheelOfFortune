@@ -2,25 +2,23 @@ package pl.danyboy;
 
 public class GuessStage {
 
-    private final LineReader lineReader;
     private final PasswordManager passwordManager;
 
-    public GuessStage(LineReader lineReader, PasswordManager passwordManager) {
-        this.lineReader = lineReader;
+    public GuessStage(PasswordManager passwordManager) {
         this.passwordManager = passwordManager;
     }
 
-    public void passwordGuessesInformation(String password) {
-        String charOrPasswordFromUser = transformToLower(lineReader.readLineFromUser());
+    public void passwordGuessesInformation(String password, String inputFromUser) {
+
+        String charOrPasswordFromUser = transformToLower(inputFromUser);
         if (charOrPasswordFromUser.length() <= 1) {
             System.out.println("Zgaduję literę");
             System.out.println(transformToLower(password).contains(charOrPasswordFromUser) ? "Zgadnięta" : "Taka litera nie występuje w haśle");
-            int index = 0;
-            passwordManager.guessLetter(charOrPasswordFromUser.charAt(index), password);
+            passwordManager.guessLetter(charOrPasswordFromUser, password);
+
         } else {
             System.out.println("Zgaduję hasło");
-            System.out.println(transformToLower(password).contains(charOrPasswordFromUser) ? "Hasło odgadnięte" : "Niepoprawne hasło");
-            passwordManager.guessPassword(password, charOrPasswordFromUser);
+            System.out.println((passwordManager.guessPassword(password, charOrPasswordFromUser) ? "Hasło odgadnięte" : "Niepoprawne hasło"));
         }
     }
 
