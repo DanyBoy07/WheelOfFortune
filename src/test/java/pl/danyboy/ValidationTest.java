@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GuessStageTest {
+public class ValidationTest {
 
     @Test
     public void shouldReturnTrueWhenPasswordIsEqual() {
-        GuessStage guessStage = new GuessStage();
+        Validation guessStage = new Validation();
         String passwordA = "AASDsssdfffAA";
         String passwordB = "aaSDsssdfffaa";
 
@@ -18,7 +18,7 @@ public class GuessStageTest {
 
     @Test
     public void shouldReturnFalseWhenPasswordIsNotEqual() {
-        GuessStage guessStage = new GuessStage();
+        Validation guessStage = new Validation();
         String passwordA = "AASDsssdfffAA";
         String passwordB = "111aaaddddDDDAS";
 

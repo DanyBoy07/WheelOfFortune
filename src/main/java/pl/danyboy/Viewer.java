@@ -13,7 +13,6 @@ public class Viewer {
     }
 
     public void passwordAnnouncement(boolean option) {
-        System.out.println("Zagaduję hasło");
         if (option) {
             System.out.println("Hasło odgadnięte");
         } else {

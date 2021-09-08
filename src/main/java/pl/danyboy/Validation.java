@@ -1,6 +1,6 @@
 package pl.danyboy;
 
-public class GuessStage {
+public class Validation {
 
     public boolean checkLettersInPassword(String password, String inputFromUser) {
         inputFromUser = inputFromUser.trim();
