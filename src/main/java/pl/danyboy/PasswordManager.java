@@ -1,18 +1,18 @@
 package pl.danyboy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.lang.Character.isLetter;
 
 public class PasswordManager {
     //true if password can be used, false is password was used during the game
-    private final Map<String, Boolean> passwords = new HashMap<>();
-    private final RandomGenerator randomGenerator = new RandomGenerator();
+    private Map<String, Boolean> passwords = new HashMap<>();
+    private final List<Character> corectGuesses = new ArrayList<>();
+    private String currentPassword = null;
 
     public PasswordManager() {
-        passwords.put("Apetyt rośnie w miarę jedzenia", true);
-        passwords.put("Co dwie głowy, to nie jedna", true);
+        passwords.put("Apetyt rośnie, w miarę jedzenia", true);
+        passwords.put("Co dwie głowy to nie jedna", true);
         passwords.put("Ćwiczenie czyni mistrza", true);
         passwords.put("Darowanemu koniowi w zęby się nie zagląda", true);
         passwords.put("Diabeł tkwi w szczegółach", true);
@@ -25,30 +25,58 @@ public class PasswordManager {
             if (checkValues()) {
                 throw new IllegalStateException("brak unikalnego hasła");
             }
-            String password = keys.get(randomGenerator.numberGenerator(keys.size()));
-            if (extracted(password)) {
-                return password;
+            String password = keys.get(numberGenerator(keys.size()));
+            if (usedPassword(password)) {
+                corectGuesses.clear();
+                return currentPassword = password;
             }
         }
     }
 
-    public long guessLetter(String inputFromUser, String password) {
+    public String getObscuredPassword() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < currentPassword.length(); i++) {
+            if (corectGuesses.contains(currentPassword.charAt(i))) {
+                stringBuilder.append(currentPassword.charAt(i));
+            } else if (isNotALetter(i)) {
+                stringBuilder.append(currentPassword.charAt(i));
+            } else {
+                stringBuilder.append('-');
+            }
+
+        }
+        return stringBuilder.toString();
+    }
+
+    public boolean checkPassword() {
+        return currentPassword.equalsIgnoreCase(getObscuredPassword());
+    }
+
+    private boolean isNotALetter(int index) {
+        return !(isLetter(currentPassword.charAt(index)));
+    }
+
+    public long guessLetter(String inputFromUser) {
         char guessLetter = transformToChar(inputFromUser);
-        return password.toLowerCase().chars().filter(ch -> ch == Character.toLowerCase(guessLetter)).count();
+        if (!(corectGuesses.contains(guessLetter) && (currentPassword.toLowerCase().contains(inputFromUser)))) {
+            lettersAddToCorectGuesses(guessLetter);
+            return currentPassword.toLowerCase().chars().filter(ch -> ch == Character.toLowerCase(guessLetter)).count();
+        }
+        return 0;
+    }
+
+    private void lettersAddToCorectGuesses(char letter) {
+        corectGuesses.add(letter);
+        corectGuesses.add(switchCharToOpposite(letter));
     }
 
     public boolean guessPassword(String guessPassword, String password) {
         return password.equalsIgnoreCase(guessPassword);
     }
 
-    public void setPasswords(String newPassword) {
-        if (passwords.containsKey(newPassword)) {
-            throw new IllegalArgumentException("Podane hasło już istnieje");
-        }
-        passwords.put(newPassword, true);
-    }
 
-    private boolean extracted(String password) {
+
+    private boolean usedPassword(String password) {
         if (passwords.get(password)) {
             passwords.put(password, false);
             return true;
@@ -69,4 +97,21 @@ public class PasswordManager {
         int index = 0;
         return inputFromUser.trim().charAt(index);
     }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
+    }
+
+    private int numberGenerator(int number) {
+        Random random = new Random();
+        return random.nextInt(number);
+    }
+
+    private char switchCharToOpposite(char letter) {
+        if (Character.isLowerCase(letter)) {
+            return Character.toUpperCase(letter);
+        }
+        return Character.toLowerCase(letter);
+    }
+
 }

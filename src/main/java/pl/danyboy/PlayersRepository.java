@@ -3,7 +3,7 @@ package pl.danyboy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListOfPlayers {
+public class PlayersRepository {
     private final List<Player> players = new ArrayList<>();
 
     public void addPlayer(String name) throws IllegalArgumentException {

@@ -6,12 +6,14 @@ public class App {
 
         LineReader lineReader = new LineReader();
         System.out.println("Witaj w Kole Fortuny");
-        PlayerFactory playerFactory = new PlayerFactory(lineReader);
+        PlayersRepository playersRepository = new PlayersRepository();
+        PlayerFactory playerFactory = new PlayerFactory(lineReader, playersRepository);
         PasswordManager passwordManager = new PasswordManager();
-        PasswordStage passwordStage = new PasswordStage();
-        GuessStage guessStage = new GuessStage(passwordManager);
 
-        Game game = new Game(passwordManager, guessStage, lineReader, passwordStage);
+        Validation guessStage = new Validation();
+        Viewer viewer = new Viewer();
+
+        Game game = new Game(passwordManager, lineReader, guessStage, viewer);
         try {
             game.roundsOfGame(playerFactory.createPlayers());
         } catch (IllegalArgumentException | IllegalStateException e) {
@@ -19,4 +21,6 @@ public class App {
         }
 
     }
+
+
 }

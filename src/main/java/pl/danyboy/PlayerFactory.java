@@ -4,21 +4,20 @@ import java.util.List;
 
 public class PlayerFactory {
     private final LineReader reader;
+    private final PlayersRepository playersRepository;
 
-    public PlayerFactory(LineReader reader) {
+    public PlayerFactory(LineReader reader, PlayersRepository playersRepository) {
         this.reader = reader;
+        this.playersRepository = playersRepository;
     }
 
     public List<Player> createPlayers() throws IllegalArgumentException {
-
         int numbersOfPlayers = setQuantityOfPlayers();
 
-
-        ListOfPlayers listOfPlayers = new ListOfPlayers();
         for (int i = 0; i < numbersOfPlayers; i++) {
-            listOfPlayers.addPlayer(setNameOfPlayerFromUser());
+            playersRepository.addPlayer(setNameOfPlayerFromUser());
         }
-        return listOfPlayers.getPlayers();
+        return playersRepository.getPlayers();
     }
 
     private String setNameOfPlayerFromUser() {

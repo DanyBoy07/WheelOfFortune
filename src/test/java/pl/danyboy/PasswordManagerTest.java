@@ -47,8 +47,9 @@ class PasswordManagerTest {
         String testString = "a";
         String password = "aaAAbbcccdddppp";
         PasswordManager passwordManager = new PasswordManager();
+        passwordManager.setCurrentPassword(password);
 
-        assertEquals(4, passwordManager.guessLetter(testString, password));
+        assertEquals(4, passwordManager.guessLetter(testString));
     }
 
     @Test
@@ -56,8 +57,8 @@ class PasswordManagerTest {
         String testString = "H";
         String password = "aaAAbbcccdddpppa";
         PasswordManager passwordManager = new PasswordManager();
-
-        assertEquals(0, passwordManager.guessLetter(testString, password));
+        passwordManager.setCurrentPassword(password);
+        assertEquals(0, passwordManager.guessLetter(testString));
     }
 
     @Test
@@ -76,4 +77,6 @@ class PasswordManagerTest {
 
         assertEquals(false, passwordManager.guessPassword(password, "asdfasfdas"));
     }
+
+
 }
